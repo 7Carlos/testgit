@@ -1,0 +1,33 @@
+const int pinEcho= 8;
+const int pinTrigger=9;
+
+float Distancia=100;
+
+
+void setup()
+{
+  pinMode(pinTrigger, OUTPUT);
+  pinMode(pinEcho, INPUT);
+  Serial.begin(9600);
+}
+
+void loop()
+{
+   float duration;
+   
+   digitalWrite(pinTrigger, LOW);  //para generar un pulso limpio ponemos a LOW 4us
+   delayMicroseconds(4);
+   digitalWrite(pinTrigger, HIGH);  //generamos Trigger (disparo) de 10us
+   delayMicroseconds(10);
+   digitalWrite(pinTrigger, LOW);
+   
+   duration = pulseIn(pinEcho, HIGH);  //medimos el tiempo entre pulsos, en microsegundos
+   
+   Distancia = duration * 10 / 292/ 2;   //convertimos a distancia, en cm
+   Serial.print(Distancia);
+   Serial.print(",");
+   Serial.println("5");
+   delay(350); 
+}
+
+  
